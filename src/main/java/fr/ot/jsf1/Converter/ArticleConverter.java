@@ -1,5 +1,6 @@
-package fr.ot.jsf1;
+package fr.ot.jsf1.Converter;
 
+import fr.ot.jsf1.ArticleBean;
 import fr.ot.jsf1.metier.Article;
 import fr.ot.jsf1.metier.Couleur;
 import jakarta.faces.component.UIComponent;

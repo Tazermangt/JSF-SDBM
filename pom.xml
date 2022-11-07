@@ -6,7 +6,7 @@
 
     <groupId>fr.ot</groupId>
     <artifactId>JSF1</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>JSF1</name>
     <packaging>war</packaging>
 
