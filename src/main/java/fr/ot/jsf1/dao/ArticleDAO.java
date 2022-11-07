@@ -75,8 +75,14 @@ public class ArticleDAO extends DAO<Article, Article> {
             cStmt.setInt(8,articleSearch.getContinent().getId());
             cStmt.setInt(9, articleSearch.getCouleur().getId());
             cStmt.setInt(10, articleSearch.getType().getId());
-            cStmt.setInt(11,page);
-            cStmt.setInt(12,100);
+            if(page > 0){
+                cStmt.setInt(11,page);
+                cStmt.setInt(12,100);
+            }else{
+                cStmt.setInt(11,0);
+                cStmt.setInt(12,0);
+            }
+
 
             cStmt.execute();
             rs = cStmt.getResultSet();

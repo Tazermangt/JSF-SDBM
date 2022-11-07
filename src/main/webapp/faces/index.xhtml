@@ -7,30 +7,80 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <f:view>
-    <ui:composition template="template/template.xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:composition template="template/template.xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                    xmlns:h="http://xmlns.jcp.org/jsf/html">
         <ui:define name="titre">Acceuil</ui:define>
         <ui:define name="contenu">
-            <h:form>
+            <h:form id="search">
+
+                <div class="ui-g">
+                    <div class="ui-g-2">
+                        <p:selectOneMenu value="#{articleBean.marque}" converter="marqueConverter">
+                            <f:selectItems value="#{articleBean.marques}"/>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="ui-g-2">
+                        <p:selectOneMenu value="#{articleBean.pays}" converter="paysConverter">
+                            <f:selectItems value="#{articleBean.paysList}"/>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="ui-g-2">
+                        <p:selectOneMenu value="#{articleBean.continent}" converter="continentConverter">
+                            <f:selectItems value="#{articleBean.continentList}"/>
+                            <p:ajax listener="#{articleBean.selectContinent}" update="search"/>
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div class="ui-g-1">
+                        <p:commandButton action="#{articleBean.search}" update="articleTable" value="Rechercher"
+                                         styleClass="mr-2"/>
+                    </div>
+
+                    <div class="ui-g-1">
+                        <p:commandButton action="#{articleBean.reset}" update="articleTable, search" value="Reset"
+                                         styleClass="mr-2"/>
+                    </div>
+
+                </div>
+            </h:form>
+
+            <h:form id="articleTable">
                 <div class="card">
-                    <p:dataTable var="article" value="#{articleBean.allArticle}" paginator="true" rows="10">
-                        <p:column headerText="Id">
-                            <h:outputText value="#{article.id}" />
+                    <p:dataTable var="article" value="#{articleBean.articles}" paginator="true" rows="10">
+                        <p:column headerText="Id" sortBy="#{article.id}">
+                            <h:outputText value="#{article.id}"/>
                         </p:column>
 
-                        <p:column headerText="Nom">
-                            <h:outputText value="#{article.libelle}" />
+                        <p:column headerText="Nom" sortBy="#{article.libelle}" filterBy="#{article.libelle}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{article.libelle}"/>
                         </p:column>
 
-                        <p:column headerText="Titrage">
-                            <h:outputText value="#{article.titrage}" />
+                        <p:column headerText="Titrage" sortBy="#{article.titrage}" filterBy="#{article.titrage}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{article.titrage}"/>
                         </p:column>
 
-                        <p:column headerText="Volume">
-                            <h:outputText value="#{article.volume}" />
+                        <p:column headerText="Volume" sortBy="#{article.volume}" filterBy="#{article.volume}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{article.volume}"/>
+                        </p:column>
+                        <p:column headerText="Marque" sortBy="#{article.marque.libelle}"
+                                  filterBy="#{article.marque.libelle}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{article.marque.libelle}"/>
+                        </p:column>
+                        <p:column headerText="Couleur" sortBy="#{article.couleur.libelle}"
+                                  filterBy="#{article.couleur.libelle}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{article.couleur.libelle}"/>
                         </p:column>
                     </p:dataTable>
                 </div>
             </h:form>
+
         </ui:define>
     </ui:composition>
 </f:view>

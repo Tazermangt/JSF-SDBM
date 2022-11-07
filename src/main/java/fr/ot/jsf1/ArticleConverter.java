@@ -16,7 +16,7 @@ public class ArticleConverter implements Converter<Article> {
     @Override
     public Article getAsObject(FacesContext facesContext, UIComponent uiComponent, String s) {
         if (s != null && s.trim().length() > 0){
-            for(Article article : articleBean.getAllArticle()){
+            for(Article article : articleBean.getArticles()){
                 if(article.getId() == Integer.parseInt(s)){
                     return article;
                 }
